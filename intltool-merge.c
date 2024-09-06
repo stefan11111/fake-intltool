@@ -1,5 +1,6 @@
 #ifndef MINIMAL
 #define _POSIX_C_SOURCE 200112L
+#define BUFSIZE 8192
 #endif
 
 #include <stdio.h>
@@ -21,24 +22,25 @@ int main(int argc, char **argv)
     FILE *g = fopen(argv[argc - 1], "w");
     int ifd = fileno(f);
     int ofd = fileno(g);
-    char buf[8192];
+    char buf[BUFSIZE];
+    char obuf[BUFSIZE];
     for(;;) {
         int nread = read(ifd, buf, sizeof(buf));
         if (nread <= 0) {
             return 0;
         }
-        unsigned int i;
-        for (i = 0; i < nread; i++) {
+        int i = 0, j = 0;
+        while(j < nread) {
             if (buf[i] == '_') {
+                i++;
                 nread--;
-                int j;
-                for (j = i; j < nread; j++) {
-                    buf[j] = buf[j + 1];
-                }
-                i--;
+                continue;
             }
+            obuf[j] = buf[i];
+            i++;
+            j++;
         }
-        (void)!write(ofd, buf, nread);
+        (void)!write(ofd, obuf, nread);
     }
 #else
     (void)!fopen(argv[argc - 1], "w");
