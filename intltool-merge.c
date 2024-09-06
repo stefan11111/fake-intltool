@@ -27,9 +27,9 @@ int main(int argc, char **argv)
         if (nread <= 0) {
             return 0;
         }
-        int i;
+        unsigned int i;
         for (i = 0; i < nread; i++) {
-            if (buf[i] == '-') {
+            if (buf[i] == '_') {
                 nread--;
                 int j;
                 for (j = i; j < nread; j++) {
