@@ -27,6 +27,17 @@ int main(int argc, char **argv)
         if (nread <= 0) {
             return 0;
         }
+        int i;
+        for (i = 0; i < nread; i++) {
+            if (buf[i] == '-') {
+                nread--;
+                int j;
+                for (j = i; j < nread; j++) {
+                    buf[j] = buf[j + 1];
+                }
+                i--;
+            }
+        }
         (void)!write(ofd, buf, nread);
     }
 #else
