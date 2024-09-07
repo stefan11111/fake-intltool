@@ -16,15 +16,15 @@ int main(int argc, char **argv)
     for(char **p = argv; *p; p++) {
         if (!memcmp(*p, "-o", sizeof("-o") - 1)) {
             p++;
-            (void)!fopen(*p, "w");
+            fopen(*p, "w");
             return 0;
         }
 
         if (!memcmp(*p, "--output-file=", sizeof("--output-file=") - 1)) {
-            (void)!fopen(*p + sizeof("--output-file=") - 1, "w");
+            fopen(*p + sizeof("--output-file=") - 1, "w");
             return 0;
         }
     }
-    (void)!fopen(argv[argc - 1], "w");
+    fopen(argv[argc - 1], "w");
     return 0;
 }

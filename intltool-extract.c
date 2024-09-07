@@ -36,6 +36,6 @@ int main(int argc, char **argv)
 
     memcpy(path + offset, argv[argc - 1], len); /* don't copy the '\0' here */
     memcpy(path + offset + len, ".h", sizeof(".h")); /* this copies the '\0' */
-    (void)!fopen(path, "w");
+    fopen(path, "w");
     return 0;
 }

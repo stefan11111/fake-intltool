@@ -43,7 +43,7 @@ int main(int argc, char **argv)
         (void)!write(ofd, obuf, nread);
     }
 #else
-    (void)!fopen(argv[argc - 1], "w");
+    fopen(argv[argc - 1], "w");
     return 0;
 #endif
 }
